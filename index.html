@@ -31,34 +31,43 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h1>RDF::N3 reader/writer</h1>
+        <h1>
+<a name="rdfn3-readerwriter" class="anchor" href="#rdfn3-readerwriter"><span class="octicon octicon-link"></span></a>RDF::N3 reader/writer</h1>
 
-<p>Notation-3 reader/writer for <a href="http://rdf.rubyforge.org/">RDF.rb</a> .</p>
+<p>Notation-3 reader/writer for <a href="http://ruby-rdf.github.com/rdf">RDF.rb</a> .</p>
 
-<h2>Description</h2>
+<p><a href="http://badge.fury.io/rb/rdf-n3"><img src="https://badge.fury.io/rb/rdf-n3.png" alt="Gem Version"></a>
+<a href="http://travis-ci.org/ruby-rdf/rdf-n3"><img src="https://travis-ci.org/ruby-rdf/rdf-n3.png?branch=master" alt="Build Status"></a></p>
 
-<p>RDF::N3 is an Notation-3 parser for Ruby using the <a href="http://rdf.rubyforge.org/">RDF.rb</a>  library suite.</p>
+<h2>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
+
+<p>RDF::N3 is an Notation-3 parser for Ruby using the <a href="http://ruby-rdf.github.com/rdf">RDF.rb</a>  library suite.</p>
 
 <p>Reader inspired from TimBL predictiveParser and Python librdf implementation.</p>
 
-<h2>Turtle deprecated</h2>
+<h2>
+<a name="turtle-deprecated" class="anchor" href="#turtle-deprecated"><span class="octicon octicon-link"></span></a>Turtle deprecated</h2>
 
 <p>Support for Turtle mime-types and specific format support has been deprecated from this gem,
-as Turtle is now implemented using [RDF::Turtle][RDF::Turtle].</p>
+as Turtle is now implemented using <a href="http://ruby-rdf.github.com/rdf-turtle/">RDF::Turtle</a>.</p>
 
-<h2>Features</h2>
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
 
-<p>RDF::N3 parses <a href="http://www.w3.org/DesignIssues/Notation3.html" title="Notation-3">Notation-3</a>, <a href="http://www.w3.org/TeamSubmission/turtle/">Turtle</a> and <a href="http://www.w3.org/2001/sw/RDFCore/ntriples/">N-Triples</a> into statements or triples. It also serializes to Turtle.</p>
+<p>RDF::N3 parses <a href="http://www.w3.org/DesignIssues/Notation3.html" title="Notation-3">Notation-3</a>, <a href="http://www.w3.org/TR/turtle/">Turtle</a> and <a href="http://www.w3.org/TR/n-triples/">N-Triples</a> into statements or triples. It also serializes to Turtle.</p>
 
 <p>Install with <code>gem install rdf-n3</code></p>
 
-<h2>Limitations</h2>
+<h2>
+<a name="limitations" class="anchor" href="#limitations"><span class="octicon octicon-link"></span></a>Limitations</h2>
 
 <ul>
 <li>Full support of Unicode input requires Ruby version 1.9 or greater.</li>
 <li>Support for Variables in Formulae dependent on underlying repository. Existential variables are quantified to RDF::Node instances, Universals to RDF::Query::Variable, with the URI of the variable target used as the variable name.</li>
 <li>No support for N3 Reification. If there were, it would be through a :reify option to the reader.</li>
-</ul><h2>Usage</h2>
+</ul><h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>Instantiate a reader from a local file:</p>
 
@@ -78,7 +87,8 @@ end
 end
 </code></pre>
 
-<h3>Formulae</h3>
+<h3>
+<a name="formulae" class="anchor" href="#formulae"><span class="octicon octicon-link"></span></a>Formulae</h3>
 
 <p>N3 Formulae are introduced with the { statement-list } syntax. A given formula is assigned an RDF::Node instance, which is also used as the context for RDF::Statement instances provided to RDF::N3::Reader#each_statement. For example, the following N3 generates the associated statements:</p>
 
@@ -96,9 +106,10 @@ RDF::Statement(s, dc:wrote, o, :context =&gt; f)
 RDF::Statement(o, dc:title, "Moby Dick", :context =&gt; f)
 </code></pre>
 
-<h3>Variables</h3>
+<h3>
+<a name="variables" class="anchor" href="#variables"><span class="octicon octicon-link"></span></a>Variables</h3>
 
-<p>N3 Variables are introduced with <a href="https://github.com/forall" class="user-mention">@forall</a>, <a href="https://github.com/foreach" class="user-mention">@foreach</a>, or ?x. Variables reference URIs described in formulae, typically defined in the default vocabulary (e.g., ":x"). Existential variables are replaced with an allocated RDF::Node instance. Universal variables are replaced with a RDF::Query::Variable instance. For example, the following N3 generates the associated statements:</p>
+<p>N3 Variables are introduced with <a href="https://github.com/forAll" class="user-mention">@forAll</a>, <a href="https://github.com/forEach" class="user-mention">@forEach</a>, or ?x. Variables reference URIs described in formulae, typically defined in the default vocabulary (e.g., ":x"). Existential variables are replaced with an allocated RDF::Node instance. Universal variables are replaced with a RDF::Query::Variable instance. For example, the following N3 generates the associated statements:</p>
 
 <pre><code>@forAll &lt;#h&gt;. @forSome &lt;#g&gt;. &lt;#g&gt; &lt;#loves&gt; &lt;#h&gt; .
 </code></pre>
@@ -110,7 +121,8 @@ g = RDF::Node.new()
 RDF::Statement.new(f, &lt;#loves&gt;, h)
 </code></pre>
 
-<h2>Implementation Notes</h2>
+<h2>
+<a name="implementation-notes" class="anchor" href="#implementation-notes"><span class="octicon octicon-link"></span></a>Implementation Notes</h2>
 
 <p>The parser is driven through a rules table contained in lib/rdf/n3/reader/meta.rb. This includes
 branch rules to indicate productions to be taken based on a current production. Terminals are denoted
@@ -125,62 +137,76 @@ through a set of regular expressions used to match each type of terminal.</p>
 
 <p>[n3-selectors.n3][file:lib/rdf/n3/reader/n3-selectors.rb] is itself used to generate meta.rb using script/build_meta.</p>
 
-<h2>TODO</h2>
+<h2>
+<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>TODO</h2>
 
 <ul>
 <li>Generate Formulae and solutions using BGP and SPARQL CONSTRUCT mechanisms</li>
 <li>Create equivalent to <code>--think</code> to iterate on solutions.</li>
-</ul><h2>Dependencies</h2>
+</ul><h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
 
 <ul>
 <li>
-<a href="http://rubygems.org/gems/rdf">RDF.rb</a> (&gt;= 0.3.4)</li>
-</ul><h2>Documentation</h2>
+<a href="http://rubygems.org/gems/rdf">RDF.rb</a> (&gt;= 1.1)</li>
+</ul><h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
 
-<p>Full documentation available on <a href="http://rdf.rubyforge.org/n3">RubyForge</a></p>
+<p>Full documentation available on <a href="http://rubydoc.info/github/ruby-rdf/rdf-n3/frames">RubyDoc.info</a></p>
 
-<h3>Principle Classes</h3>
+<h3>
+<a name="principle-classes" class="anchor" href="#principle-classes"><span class="octicon octicon-link"></span></a>Principle Classes</h3>
 
 <ul>
 <li>{RDF::N3}</li>
 <li>{RDF::N3::Format}</li>
 <li>{RDF::N3::Reader}</li>
 <li>{RDF::N3::Writer}</li>
-</ul><h3>Additional vocabularies</h3>
+</ul><h3>
+<a name="additional-vocabularies" class="anchor" href="#additional-vocabularies"><span class="octicon octicon-link"></span></a>Additional vocabularies</h3>
 
 <ul>
 <li>{RDF::LOG}</li>
 <li>{RDF::REI}</li>
-</ul><h3>Patches</h3>
+</ul><h3>
+<a name="patches" class="anchor" href="#patches"><span class="octicon octicon-link"></span></a>Patches</h3>
 
 <ul>
 <li>{Array}</li>
 <li>{RDF::List}</li>
-</ul><h2>Resources</h2>
+</ul><h2>
+<a name="resources" class="anchor" href="#resources"><span class="octicon octicon-link"></span></a>Resources</h2>
 
 <ul>
-<li><a href="http://rdf.rubyforge.org/">RDF.rb</a></li>
+<li><a href="http://ruby-rdf.github.com/rdf">RDF.rb</a></li>
 <li><a href="http://rdf.greggkellogg.net/distiller">Distiller</a></li>
 <li><a href="http://rubydoc.info/github/ruby-rdf/rdf-n3/master/frames">Documentation</a></li>
 <li><a>History</a></li>
 <li><a href="http://www.w3.org/DesignIssues/Notation3.html" title="Notation-3">Notation-3</a></li>
 <li><a href="http://www.w3.org/2000/10/swap/Primer.html">N3 Primer</a></li>
 <li><a href="http://www.w3.org/DesignIssues/Reify.html">N3 Reification</a></li>
-<li><a href="http://www.w3.org/TeamSubmission/turtle/">Turtle</a></li>
+<li><a href="http://www.w3.org/TR/turtle/">Turtle</a></li>
 <li><a href="http://www.w3.org/2000/10/swap/test/README.html">W3C SWAP Test suite</a></li>
 <li><a href="http://www.w3.org/2001/sw/DataAccess/df1/tests/README.txt">W3C Turtle Test suite</a></li>
-<li><a href="http://www.w3.org/2001/sw/RDFCore/ntriples/">N-Triples</a></li>
-</ul><h2>Author</h2>
+<li><a href="http://www.w3.org/TR/n-triples/">N-Triples</a></li>
+</ul><h2>
+<a name="author" class="anchor" href="#author"><span class="octicon octicon-link"></span></a>Author</h2>
 
 <ul>
 <li>
 <a href="http://github.com/gkellogg">Gregg Kellogg</a> - <a href="http://greggkellogg.net/">http://greggkellogg.net/</a>
 </li>
-</ul><h2>Contributors</h2>
+</ul><h2>
+<a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
 
 <ul>
-<li><a href="http://github.com/njh">Nicholas Humfrey</a></li>
-</ul><h2>Contributing</h2>
+<li>
+<a href="http://github.com/njh">Nicholas Humfrey</a> - <a href="http://njh.me/">http://njh.me/</a>
+</li>
+</ul><h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>This repository uses <a href="https://github.com/nvie/gitflow">Git Flow</a> to mange development and release activity. All submissions <em>must</em> be on a feature branch based on the <em>develop</em> branch to ease staging and integration.</p>
 
 <ul>
 <li>Do your best to adhere to the existing coding conventions and idioms.</li>
@@ -194,19 +220,21 @@ list in the the <code>README</code>. Alphabetical order applies.</li>
 <li>Do note that in order for us to merge any non-trivial changes (as a rule
 of thumb, additions larger than about 15 lines of code), we need an
 explicit <a href="http://lists.w3.org/Archives/Public/public-rdf-ruby/2010May/0013.html">public domain dedication</a> on record from you.</li>
-</ul><h2>License</h2>
+</ul><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>This is free and unencumbered public domain software. For more information,
 see <a href="http://unlicense.org/">http://unlicense.org/</a> or the accompanying {file:UNLICENSE} file.</p>
 
-<h2>Feedback</h2>
+<h2>
+<a name="feedback" class="anchor" href="#feedback"><span class="octicon octicon-link"></span></a>Feedback</h2>
 
 <ul>
 <li><a href="mailto:gregg@greggkellogg.net">gregg@greggkellogg.net</a></li>
 <li><a href="http://rubygems.org/gem/rdf-n3">http://rubygems.org/gem/rdf-n3</a></li>
 <li><a href="http://github.com/ruby-rdf/rdf-n3">http://github.com/ruby-rdf/rdf-n3</a></li>
 <li><a href="http://lists.w3.org/Archives/Public/public-rdf-ruby/">http://lists.w3.org/Archives/Public/public-rdf-ruby/</a></li>
-</ul><p>[RDF::Turtle] <a href="http://github.com/ruby-rdf/rdf-turtle/">http://github.com/ruby-rdf/rdf-turtle/</a></p>
+</ul>
       </section>
     </div>
 
